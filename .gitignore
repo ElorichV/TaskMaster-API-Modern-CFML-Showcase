@@ -1,0 +1,23 @@
+# CommandBox & ColdFusion Engines
+.engine/
+WEB-INF/
+.lucee/
+catalina-base/
+runner.log
+
+# Environment & Sensitive configs
+.env
+*.key
+*.pem
+
+# OS & Editor artifacts
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Local Embedded Database files
+/data/
+*.h2.db
+*.trace.db
+*.lock.db

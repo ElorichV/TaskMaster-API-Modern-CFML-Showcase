@@ -1,0 +1,26 @@
+{
+    "name": "taskmaster-api",
+    "app": {
+        "cfengine": "lucee@5.4.6.9",
+        "webroot": "."
+    },
+    "web": {
+        "http": {
+            "port": 8080,
+            "enable": true
+        },
+        "rewrites": {
+            "enable": true,
+            "config": "commandbox"
+        }
+    },
+    "jvm": {
+        "minMemory": "256",
+        "maxMemory": "512",
+        "args": "-Dfile.encoding=UTF-8"
+    },
+    "env": {
+        "ENVIRONMENT": "development",
+        "DB_NAME": "taskmaster_db"
+    }
+}

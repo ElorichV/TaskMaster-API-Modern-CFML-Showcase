@@ -1,0 +1,24 @@
+{
+    "name": "taskmaster-api",
+    "version": "1.0.0",
+    "author": "Senior CFML Backend Architect",
+    "description": "Production-ready Modern CFML (Lucee / ColdFusion) REST API showcase with 100% cfscript, parameterized SQL queries, clean architecture, and OWASP-compliant security.",
+    "keywords": [
+        "cfml",
+        "lucee",
+        "coldfusion",
+        "rest-api",
+        "clean-architecture",
+        "security",
+        "cfscript"
+    ],
+    "type": "mvc",
+    "scripts": {
+        "start": "server start --rewritesEnable",
+        "stop": "server stop",
+        "status": "server status",
+        "log": "server log --follow"
+    },
+    "dependencies": {},
+    "devDependencies": {}
+}

@@ -21,3 +21,9 @@ Thumbs.db
 *.h2.db
 *.trace.db
 *.lock.db
+
+# Frontend (Node / Vite / TypeScript)
+node_modules/
+dist/
+*.tsbuildinfo
+

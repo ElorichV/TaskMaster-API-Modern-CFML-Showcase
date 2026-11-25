@@ -148,6 +148,21 @@ Como desarrollador Full Stack, la seguridad no es un agregado opcional:
    box server stop
    ```
 
+### Frontend Dual-Pane (React DevTools Inspector)
+
+El directorio `frontend/` contiene una interfaz **React + TypeScript + Vite + Tailwind CSS** con arquitectura de doble panel:
+
+* **Panel izquierdo (60%):** UI de producto TaskMaster con login de un clic, kanban con filtros, CRUD completo y botón para forzar un error `422 Unprocessable Entity` (RFC 7807).
+* **Panel derecho (40%):** Inspector estilo DevTools que registra cada petición HTTP en tiempo real: payload de respuesta, headers OWASP, snippet de `queryExecute()` con `cfsqltype`, comando `curl` copiable, latencia y badge `LIVE`/`SIMULATED`.
+
+```bash
+cd frontend
+npm install
+npm run dev   # http://localhost:5173
+```
+
+El dev server proxifica `/api` hacia `http://localhost:8080`. Si el backend CFML no está corriendo, el frontend entra automáticamente en **Modo Simulado** (backend en memoria que replica las respuestas de la API), para poder revisarlo sin `box server start`. Configurable con `VITE_API_BASE_URL`.
+
 ---
 
 ## 📡 Referencia de Endpoints
@@ -320,7 +335,7 @@ Este script valida:
 
 - [ ] Agregar especificación OpenAPI / Swagger UI para documentación interactiva.
 - [ ] Implementar contenedor Docker (`Dockerfile` y `docker-compose.yml`) con MySQL multi-stage.
-- [ ] Crear frontend de muestra en React (Vite + Tailwind CSS + Lucide Icons).
+- [x] Crear frontend de muestra en React (Vite + Tailwind CSS + Lucide Icons). Ver `frontend/` (Dual-Pane DevTools Inspector).
 - [ ] Agregar suite de pruebas unitarias con TestBox.
 
 ---

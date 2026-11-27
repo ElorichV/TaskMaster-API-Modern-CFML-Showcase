@@ -50,7 +50,7 @@ export function TaskBoard({
   return (
     <section aria-label="Task board" className="flex h-full flex-col gap-4 p-4">
       <div className="flex flex-wrap items-center gap-2">
-        <label className="relative flex-1 min-w-48">
+        <label className="relative min-w-40 flex-1">
           <span className="sr-only">Buscar tareas</span>
           <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-slate-500" aria-hidden />
           <input
@@ -60,8 +60,8 @@ export function TaskBoard({
               setSearch(e.target.value);
               emit(e.target.value);
             }}
-            placeholder="Buscar por título o descripción…"
-            className="w-full rounded-md border border-slate-700 bg-slate-900 py-2 pl-8 pr-3 text-sm text-slate-100 placeholder-slate-500"
+            placeholder="Buscar tareas…"
+            className="w-full rounded-md border border-slate-700 bg-slate-900 py-1.5 pl-8 pr-2.5 text-xs text-slate-100 placeholder-slate-500"
           />
         </label>
         <label className="sr-only" htmlFor="status-filter">Filtrar por estado</label>
@@ -73,7 +73,7 @@ export function TaskBoard({
             setStatus(v);
             emit(search, v, priority);
           }}
-          className="rounded-md border border-slate-700 bg-slate-900 px-2 py-2 text-sm text-slate-200"
+          className="rounded-md border border-slate-700 bg-slate-900 px-2 py-1.5 text-xs text-slate-200"
         >
           {STATUSES.map((s) => (
             <option key={s} value={s}>{s === 'ALL' ? 'Estado: Todos' : s}</option>
@@ -88,7 +88,7 @@ export function TaskBoard({
             setPriority(v);
             emit(search, status, v);
           }}
-          className="rounded-md border border-slate-700 bg-slate-900 px-2 py-2 text-sm text-slate-200"
+          className="rounded-md border border-slate-700 bg-slate-900 px-2 py-1.5 text-xs text-slate-200"
         >
           {PRIORITIES.map((p) => (
             <option key={p} value={p}>{p === 'ALL' ? 'Prioridad: Todas' : p}</option>
@@ -98,25 +98,25 @@ export function TaskBoard({
           type="button"
           onClick={onNewTask}
           disabled={!authenticated}
-          className="inline-flex items-center gap-1.5 rounded-md bg-indigo-600 px-3 py-2 text-sm font-medium text-white hover:bg-indigo-500 disabled:opacity-40"
+          className="inline-flex items-center gap-1.5 rounded-md bg-indigo-600 px-2.5 py-1.5 text-xs font-medium text-white hover:bg-indigo-500 disabled:opacity-40"
         >
-          <Plus className="h-4 w-4" aria-hidden /> Nueva Tarea
+          <Plus className="h-3.5 w-3.5" aria-hidden /> Nueva Tarea
         </button>
         <button
           type="button"
           onClick={onForce422}
           disabled={!authenticated}
-          className="inline-flex items-center gap-1.5 rounded-md border border-amber-500/40 bg-amber-500/10 px-3 py-2 text-sm text-amber-300 hover:bg-amber-500/20 disabled:opacity-40"
+          className="inline-flex items-center gap-1.5 rounded-md border border-amber-500/40 bg-amber-500/10 px-2.5 py-1.5 text-xs text-amber-300 hover:bg-amber-500/20 disabled:opacity-40"
         >
-          <Zap className="h-4 w-4" aria-hidden /> Forzar Error 422
+          <Zap className="h-3.5 w-3.5" aria-hidden /> Forzar 422
         </button>
       </div>
 
-      <div className="grid flex-1 grid-cols-1 gap-3 overflow-auto scrollbar-thin sm:grid-cols-2 xl:grid-cols-4">
+      <div className="grid flex-1 grid-cols-1 gap-3 overflow-auto scrollbar-thin sm:grid-cols-2 2xl:grid-cols-4">
         {COLUMNS.map((col) => {
           const colTasks = tasks.filter((t) => t.status === col);
           return (
-            <div key={col} className="flex flex-col gap-2 rounded-lg border border-slate-800 bg-slate-900/50 p-3">
+            <div key={col} className="flex min-w-0 flex-col gap-2 rounded-lg border border-slate-800 bg-slate-900/50 p-3">
               <h2 className={`text-xs font-semibold tracking-wider ${columnAccent[col]}`}>
                 {col} <span className="text-slate-500">({colTasks.length})</span>
               </h2>
@@ -124,23 +124,23 @@ export function TaskBoard({
                 <p className="rounded border border-dashed border-slate-800 p-3 text-xs text-slate-600">Sin tareas</p>
               )}
               {colTasks.map((task) => (
-                <article key={task.id} className="rounded-md border border-slate-800 bg-slate-900 p-3 shadow-sm">
+                <article key={task.id} className="min-w-0 rounded-md border border-slate-800 bg-slate-900 p-3 shadow-sm">
                   <div className="mb-1.5 flex items-start justify-between gap-2">
-                    <h3 className="text-sm font-medium text-slate-100">{task.title}</h3>
+                    <h3 className="min-w-0 break-words text-sm font-medium text-slate-100">{task.title}</h3>
                     <span className={`shrink-0 rounded border px-1.5 py-0.5 text-[10px] font-semibold ${priorityBadge[task.priority]}`}>
                       {task.priority}
                     </span>
                   </div>
-                  {task.description && <p className="mb-2 text-xs text-slate-400">{task.description}</p>}
+                  {task.description && <p className="mb-2 break-words text-xs text-slate-400">{task.description}</p>}
                   {task.dueDate && <p className="mb-2 text-[11px] text-slate-500">Vence: {task.dueDate}</p>}
-                  <div className="flex items-center gap-1.5">
+                  <div className="flex min-w-0 items-center gap-1.5">
                     <label className="sr-only" htmlFor={`st-${task.id}`}>Cambiar estado</label>
                     <select
                       id={`st-${task.id}`}
                       value={task.status}
                       onChange={(e) => onStatusChange(task, e.target.value as TaskStatus)}
                       disabled={!authenticated}
-                      className="flex-1 rounded border border-slate-700 bg-slate-800 px-1.5 py-1 text-[11px] text-slate-200 disabled:opacity-50"
+                      className="min-w-0 flex-1 truncate rounded border border-slate-700 bg-slate-800 px-1.5 py-1 text-[11px] text-slate-200 disabled:opacity-50"
                     >
                       {COLUMNS.map((s) => (
                         <option key={s} value={s}>{s}</option>
@@ -151,7 +151,7 @@ export function TaskBoard({
                       onClick={() => onEditTask(task)}
                       disabled={!authenticated}
                       aria-label={`Editar ${task.title}`}
-                      className="rounded border border-slate-700 p-1.5 text-slate-300 hover:bg-slate-700 disabled:opacity-40"
+                      className="shrink-0 rounded border border-slate-700 p-1.5 text-slate-300 hover:bg-slate-700 disabled:opacity-40"
                     >
                       <Pencil className="h-3.5 w-3.5" aria-hidden />
                     </button>
@@ -160,7 +160,7 @@ export function TaskBoard({
                       onClick={() => onDeleteTask(task)}
                       disabled={!authenticated}
                       aria-label={`Eliminar ${task.title}`}
-                      className="rounded border border-rose-500/30 p-1.5 text-rose-400 hover:bg-rose-500/10 disabled:opacity-40"
+                      className="shrink-0 rounded border border-rose-500/30 p-1.5 text-rose-400 hover:bg-rose-500/10 disabled:opacity-40"
                     >
                       <Trash2 className="h-3.5 w-3.5" aria-hidden />
                     </button>
